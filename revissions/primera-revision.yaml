@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/JoseAle8Git/mi-practica-argocd
+    repoURL: https://github.com/JoseAle8Git/pr-ctica_keycloak_gitops
     targetRevision: HEAD
     path: manifests/apps/__overlays
   destination:
