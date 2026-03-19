@@ -1,0 +1,9 @@
+server:
+  service:
+    type: ClusterIP
+
+alertmanager:
+  enabled: false
+
+prometheus-pushgateway:
+  enabled: false
