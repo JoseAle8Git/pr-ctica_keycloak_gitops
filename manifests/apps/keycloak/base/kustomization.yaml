@@ -6,4 +6,4 @@ resources:
 configMapGenerator:
   - name: keycloak-values
     files:
-      - values.yaml=../../../resources/apps/keycloak/values.yaml
+      - values.yaml=../../../../resources/apps/keycloak/values.yaml
