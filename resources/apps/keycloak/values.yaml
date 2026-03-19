@@ -1,6 +1,6 @@
 image:
   registry: docker.io
-  repository: bitnamilegacy/keycloak
+  repository: bitnami/keycloak
   tag: 26.3.1-debian-12-r1
 
 auth:
@@ -12,6 +12,8 @@ service:
 
 postgresql:
   enabled: true
+  image:
+    tag: 17.3.0-debian-12-r14
   auth:
     username: keycloak
     password: "keycloak123"
