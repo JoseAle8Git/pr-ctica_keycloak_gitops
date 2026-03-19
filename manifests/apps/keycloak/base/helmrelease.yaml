@@ -1,52 +1,28 @@
-keycloakConfigCli:
-  enabled: true
-  image:
-    registry: docker.io
-    repository: bitnamilegacy/keycloak-config-cli
-    tag: 6.4.0-debian-12-r11
-  configuration:
-    mi-realm.yaml: |
-      realm: mi-realm
-      enabled: true
-      displayName: Mi Realm de Práctica
-
-      clients:
-        - clientId: mi-app
-          enabled: true
-          publicClient: true
-          redirectUris:
-            - "*"
-          webOrigins:
-            - "*"
-          defaultClientScopes:
-            - web-origins
-            - profile
-            - roles
-            - email
-            - mi-scope
-
-      clientScopes:
-        - name: mi-scope
-          description: Scope personalizado para mi-app
-          protocol: openid-connect
-          attributes:
-            include.in.token.scope: "true"
-          protocolMappers:
-            - name: mi-scope-mapper
-              protocol: openid-connect
-              protocolMapper: oidc-usermodel-realm-role-mapper
-              config:
-                claim.name: roles
-                jsonType.label: String
-                access.token.claim: "true"
-                id.token.claim: "true"
-
-      roles:
-        client:
-          mi-app:
-            - name: app-admin
-              description: Administrador de la app
-            - name: app-user
-              description: Usuario estándar
-            - name: app-viewer
-              description: Solo lectura
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: keycloak
+      targetRevision: "*"
+      helm:
+        valueFiles:
+          - $values/resources/apps/keycloak/values.yaml
+    - repoURL: https://github.com/JoseAle8Git/pr-ctica_keycloak_gitops.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
