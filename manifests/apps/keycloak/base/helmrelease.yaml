@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://charts.bitnami.com/bitnami
+    - repoURL: registry-1.docker.io/bitnamicharts
       chart: keycloak
-      targetRevision: "*"
+      targetRevision: 24.7.3
       helm:
         valueFiles:
           - $values/resources/apps/keycloak/values.yaml
