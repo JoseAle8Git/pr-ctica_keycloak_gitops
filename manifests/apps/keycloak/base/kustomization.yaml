@@ -3,7 +3,3 @@ kind: Kustomization
 namespace: keycloak
 resources:
   - helmrelease.yaml
-configMapGenerator:
-  - name: keycloak-values
-    files:
-      - values.yaml=../../../../resources/apps/keycloak/values.yaml
