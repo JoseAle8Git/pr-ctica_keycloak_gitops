@@ -1,10 +1,8 @@
 image:
   registry: docker.io
-  repository: bitnami/keycloak
-  tag: 26.3.1-debian-12-r1
-global:
-  security:
-    allowInsecureImages: true
+  repository: bitnamilegacy/keycloak
+  tag: 26.3.3-debian-12-r0
+
 auth:
   adminUser: admin
   adminPassword: "admin123"
@@ -23,21 +21,18 @@ postgresql:
     password: "keycloak123"
     database: keycloak
 
-# ─── keycloak-config-cli ────────────────────────────────────────────
 keycloakConfigCli:
   enabled: true
   image:
     registry: docker.io
-    repository: bitnami/keycloak-config-cli
+    repository: bitnamilegacy/keycloak-config-cli
     tag: 6.4.0-debian-12-r11
-
   configuration:
     mi-realm.json: |
       {
         "realm": "mi-realm",
         "enabled": true,
         "displayName": "Mi Realm de Práctica",
-
         "clients": [
           {
             "clientId": "mi-app",
@@ -46,23 +41,16 @@ keycloakConfigCli:
             "redirectUris": ["*"],
             "webOrigins": ["*"],
             "defaultClientScopes": [
-              "web-origins",
-              "profile",
-              "roles",
-              "email",
-              "mi-scope"
+              "web-origins", "profile", "roles", "email", "mi-scope"
             ]
           }
         ],
-
         "clientScopes": [
           {
             "name": "mi-scope",
             "description": "Scope personalizado para mi-app",
             "protocol": "openid-connect",
-            "attributes": {
-              "include.in.token.scope": "true"
-            },
+            "attributes": { "include.in.token.scope": "true" },
             "protocolMappers": [
               {
                 "name": "mi-scope-mapper",
@@ -78,7 +66,6 @@ keycloakConfigCli:
             ]
           }
         ],
-
         "roles": {
           "client": {
             "mi-app": [
@@ -87,19 +74,5 @@ keycloakConfigCli:
               { "name": "app-viewer", "description": "Solo lectura" }
             ]
           }
-        },
-
-        "users": [
-          {
-            "username": "testuser",
-            "enabled": true,
-            "email": "testuser@example.com",
-            "credentials": [
-              { "type": "password", "value": "test123", "temporary": false }
-            ],
-            "clientRoles": {
-              "mi-app": ["app-user"]
-            }
-          }
-        ]
+        }
       }
