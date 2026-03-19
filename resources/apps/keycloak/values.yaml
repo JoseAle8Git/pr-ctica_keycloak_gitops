@@ -11,9 +11,8 @@ auth:
   adminUser: admin
   adminPassword: "admin123"
 
-extraEnvVars:
-  - name: KC_CACHE
-    value: "local"
+cache:
+  enabled: false
 
 service:
   type: ClusterIP
