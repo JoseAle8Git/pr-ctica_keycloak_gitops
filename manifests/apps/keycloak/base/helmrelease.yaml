@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami
-        namespace: flux-system
+        namespace: keycloak
       interval: 1m
   valuesFrom:
     - kind: ConfigMap
