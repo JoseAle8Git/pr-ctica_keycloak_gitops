@@ -26,3 +26,10 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: keycloak2-postgresql  
+      namespace: monitoring
+      jsonPointers:
+        - /data/postgres-password 
