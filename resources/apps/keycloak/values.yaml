@@ -9,7 +9,8 @@ image:
 
 auth:
   adminUser: admin
-  adminPassword: "admin123"
+  existingSecret: keycloak-admin-secret
+  passwordSecretKey: admin-password
 
 extraEnvVars:
   - name: KC_CACHE_TYPE
@@ -28,8 +29,10 @@ postgresql:
     tag: "17.6.0-debian-12-r0"
   auth:
     username: keycloak
-    password: "keycloak123"
     database: keycloak
+    existingSecret: keycloak-postgresql-secret
+    secretKeys:
+      userPasswordKey: postgresql-password
 
 keycloakConfigCli:
   enabled: true
